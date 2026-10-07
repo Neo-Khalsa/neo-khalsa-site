@@ -1,0 +1,12 @@
+/* Blueprint viewer - react-pdf overrides.
+   The default page box is white and stretches to the container width, leaving a
+   white margin beside the (narrower) canvas. Drop the backing so pages sit on
+   the site's dark background, and give the canvas a soft shadow for definition. */
+.react-pdf__Page {
+  background: transparent !important;
+}
+
+.react-pdf__Page__canvas {
+  display: block;
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.55);
+}

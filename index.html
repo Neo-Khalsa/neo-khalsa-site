@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=contain: iOS 26 Safari renders pages edge-to-edge under the
+         status bar by default, but clips pinned headers to below it - so page
+         content shows above the nav bar with no way to cover it. contain keeps
+         the page out of that strip entirely; color-scheme/theme-color make
+         Safari paint the strip dark to match the site. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=contain" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="description" content="Neo Khalsa is building Sikh institutions: a book, a publishing imprint, an animated series, and in time an akhara, a university, and a gurdwara." />
+    <meta property="og:site_name" content="Neo Khalsa" />
+    <meta property="og:title" content="Neo Khalsa" />
+    <meta property="og:description" content="A book, an imprint, an animated series, and in time an akhara, a university, and a gurdwara. The full plan, with costs and timelines, is published." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://neokhalsa.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Neo Khalsa" />
+    <meta name="twitter:description" content="A book, an imprint, an animated series, and in time an akhara, a university, and a gurdwara. The full plan, with costs and timelines, is published." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Neo Khalsa</title>
+  </head>
+
+  <body style="background:#0a0a0a">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
