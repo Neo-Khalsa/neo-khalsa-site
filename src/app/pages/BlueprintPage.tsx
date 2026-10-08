@@ -108,7 +108,7 @@ export function BlueprintPage() {
           >
             <div className="flex items-center gap-3 mb-8 md:mb-12">
               <KhandaSymbol size={14} glow={false} animate={false} className="opacity-25" />
-              <span className="text-[9px] tracking-[0.45em] opacity-25 font-mono">05 · BLUEPRINT</span>
+              <span className="text-[9px] tracking-[0.45em] opacity-25 font-mono">WRITINGS · BLUEPRINT</span>
             </div>
 
             <div className="overflow-hidden">

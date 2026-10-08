@@ -14,14 +14,21 @@ const IOS_SAFARI_BAR_EXTRA =
     ? 70
     : 0;
 
+/* The numbered spine of the site. Long-form documents are deliberately not in
+   here - seven large items already overflowed short laptops once, and a
+   manifesto is a different kind of thing from a section. */
 const MENU_ITEMS = [
-  { path: '/',          num: '00', label: 'Home'      },
-  { path: '/mission',   num: '01', label: 'Mission'   },
-  { path: '/projects',  num: '02', label: 'Projects'  },
+  { path: '/',             num: '00', label: 'Home'         },
+  { path: '/mission',      num: '01', label: 'Mission'      },
+  { path: '/projects',     num: '02', label: 'Projects'     },
   { path: '/spaces',       num: '03', label: 'Spaces'       },
   { path: '/get-involved', num: '04', label: 'Get Involved' },
-  { path: '/blueprint',    num: '05', label: 'Blueprint'    },
-  { path: '/contact',      num: '06', label: 'Contact'      },
+  { path: '/contact',      num: '05', label: 'Contact'      },
+];
+
+const DOCUMENTS = [
+  { path: '/blueprint', label: 'The Blueprint',       short: 'BLUEPRINT' },
+  { path: '/manifesto', label: 'Khalistan Manifesto', short: 'MANIFESTO' },
 ];
 
 export function Navigation() {
@@ -62,6 +69,7 @@ export function Navigation() {
   }, [open]);
 
   const current = MENU_ITEMS.find(i => i.path === location.pathname);
+  const currentDoc = DOCUMENTS.find(d => d.path === location.pathname);
 
   return (
     <>
@@ -113,6 +121,11 @@ export function Navigation() {
                 {current.num} · {current.label.toUpperCase()}
               </span>
             )}
+            {currentDoc && (
+              <span className="hidden md:block text-[9px] tracking-[0.4em] font-mono opacity-25">
+                WRITINGS · {currentDoc.short}
+              </span>
+            )}
             <button
               onClick={() => setOpen(!open)}
               aria-label={open ? 'Close menu' : 'Open menu'}
@@ -158,47 +171,99 @@ export function Navigation() {
               }}
             />
 
-            <nav className="flex-1 flex flex-col justify-center px-6 md:px-16 max-w-[1700px] mx-auto w-full">
-              {MENU_ITEMS.map(({ path, num, label }, i) => {
-                const active = location.pathname === path;
-                return (
-                  <motion.div
-                    key={path}
-                    initial={{ opacity: 0, y: 28 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
-                    transition={{ duration: 0.5, delay: 0.06 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <Link
-                      to={path}
-                      className="group flex items-baseline gap-4 md:gap-8 py-1.5 md:py-2"
-                    >
-                      <span className="text-[10px] font-mono w-7 flex-shrink-0 transition-opacity"
-                        style={{ color: active ? '#C01818' : undefined, opacity: active ? 0.9 : 0.25 }}>
-                        {num}
-                      </span>
-                      <span
-                        className={`font-display leading-none transition-all duration-300 ${
-                          active ? 'text-glow-crimson' : 'opacity-65 group-hover:opacity-100'
-                        }`}
-                        // sized by height as well as width: seven items at 9vw
-                        // overflowed short laptop screens and pushed the last
-                        // link off the overlay, which cannot scroll
-                        style={{ fontSize: 'clamp(2.25rem, min(7vw, 7svh), 5rem)' }}
+            {/* Desktop: two columns, documents in the otherwise empty right half.
+                Mobile: stacked, documents as a quieter row underneath. */}
+            <div className="flex-1 flex flex-col justify-center px-6 md:px-16 max-w-[1700px] mx-auto w-full">
+              <div className="lg:grid lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-16 lg:items-center">
+
+                <nav className="flex flex-col">
+                  {MENU_ITEMS.map(({ path, num, label }, i) => {
+                    const active = location.pathname === path;
+                    return (
+                      <motion.div
+                        key={path}
+                        initial={{ opacity: 0, y: 28 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 12 }}
+                        transition={{ duration: 0.5, delay: 0.06 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        {label}
-                      </span>
-                      <span
-                        className="hidden md:block text-2xl opacity-0 group-hover:opacity-60 transition-all duration-300 translate-x-0 group-hover:translate-x-2"
-                        style={{ color: '#C01818' }}
-                      >
-                        →
-                      </span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </nav>
+                        <Link
+                          to={path}
+                          className="group flex items-baseline gap-4 md:gap-8 py-1.5 md:py-2"
+                        >
+                          <span className="text-[10px] font-mono w-7 flex-shrink-0 transition-opacity"
+                            style={{ color: active ? '#C01818' : undefined, opacity: active ? 0.9 : 0.25 }}>
+                            {num}
+                          </span>
+                          <span
+                            className={`font-display leading-none transition-all duration-300 ${
+                              active ? 'text-glow-crimson' : 'opacity-65 group-hover:opacity-100'
+                            }`}
+                            // sized by height as well as width: the list must not
+                            // overflow short laptop screens, which cannot scroll
+                            style={{ fontSize: 'clamp(2.25rem, min(7vw, 8svh), 5rem)' }}
+                          >
+                            {label}
+                          </span>
+                          <span
+                            className="hidden md:block text-2xl opacity-0 group-hover:opacity-60 transition-all duration-300 translate-x-0 group-hover:translate-x-2"
+                            style={{ color: '#C01818' }}
+                          >
+                            →
+                          </span>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </nav>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-9 pt-7 border-t hairline lg:mt-0 lg:pt-0 lg:border-t-0 lg:border-l lg:pl-14"
+                >
+                  <p className="text-[9px] tracking-[0.4em] font-mono opacity-25 mb-4 lg:mb-6">WRITINGS</p>
+
+                  <div className="flex flex-row flex-wrap items-center gap-x-5 gap-y-2 lg:flex-col lg:items-start lg:gap-y-4">
+                    {DOCUMENTS.map(({ path, label, short }) => {
+                      const active = location.pathname === path;
+                      return (
+                        <Link
+                          key={path}
+                          to={path}
+                          className="group inline-flex items-baseline gap-3 transition-opacity duration-300"
+                          style={{ opacity: active ? 1 : 0.6 }}
+                        >
+                          <span
+                            className="lg:hidden text-[11px] tracking-[0.2em] font-mono"
+                            style={{ color: active ? '#C01818' : undefined }}
+                          >
+                            {short}
+                          </span>
+                          <span
+                            className={`hidden lg:inline font-display leading-tight ${
+                              active ? 'text-glow-crimson' : ''
+                            }`}
+                            style={{ fontSize: 'clamp(1.1rem, 1.6vw, 1.6rem)' }}
+                          >
+                            {label}
+                          </span>
+                          <span
+                            className="hidden lg:inline text-base opacity-0 group-hover:opacity-60 transition-all duration-300 group-hover:translate-x-1"
+                            style={{ color: '#C01818' }}
+                          >
+                            →
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+
+              </div>
+            </div>
 
             {/* Overlay footer */}
             <motion.div

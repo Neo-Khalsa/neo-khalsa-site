@@ -8,6 +8,10 @@ import { SpacesPage } from './pages/SpacesPage';
 import { MissionPage } from './pages/MissionPage';
 import { GetInvolvedPage } from './pages/GetInvolvedPage';
 import { ContactPage } from './pages/ContactPage';
+/* Code-split: the manifesto ships ~34KB of body text, only needed on its page. */
+const ManifestoPage = lazy(() =>
+  import('./pages/ManifestoPage').then((m) => ({ default: m.ManifestoPage })),
+);
 /* Code-split: pdf.js is ~470KB, so only load it when the Blueprint is opened. */
 const BlueprintPage = lazy(() =>
   import('./pages/BlueprintPage').then((m) => ({ default: m.BlueprintPage })),
@@ -29,6 +33,10 @@ export default function App() {
           {/* legacy path redirect */}
           <Route path="/operation"  element={<Navigate to="/get-involved" replace />} />
           <Route path="/contact"    element={<ContactPage />} />
+          <Route
+            path="/manifesto"
+            element={<Suspense fallback={null}><ManifestoPage /></Suspense>}
+          />
           <Route
             path="/blueprint"
             element={

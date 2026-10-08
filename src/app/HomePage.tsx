@@ -5,12 +5,17 @@ import { useHeroIntro } from './components/HeroIntro';
 import logoWhite from '../assets/027354ce14dae85850c3c889442da6849aab7a08.webp';
 
 const NAV_ROWS = [
-  { path: '/mission',      num: '01', label: 'Mission',      desc: 'What we are building, and why'         },
-  { path: '/projects',     num: '02', label: 'Projects',     desc: 'A book, an imprint, a series'          },
-  { path: '/spaces',       num: '03', label: 'Spaces',       desc: 'An akhara, a university, a gurdwara'   },
-  { path: '/get-involved', num: '04', label: 'Get Involved', desc: 'Funding, skills, collaboration'        },
-  { path: '/blueprint',    num: '05', label: 'Blueprint',    desc: 'The full plan, page by page'           },
-  { path: '/contact',      num: '06', label: 'Contact',      desc: 'Enquiries and correspondence'          },
+  { path: '/mission',      num: '01', label: 'Mission',      desc: 'What we are building, and why'       },
+  { path: '/projects',     num: '02', label: 'Projects',     desc: 'A book, an imprint, a series'        },
+  { path: '/spaces',       num: '03', label: 'Spaces',       desc: 'An akhara, a university, a gurdwara' },
+  { path: '/get-involved', num: '04', label: 'Get Involved', desc: 'Funding, skills, collaboration'      },
+  { path: '/contact',      num: '05', label: 'Contact',      desc: 'Enquiries and correspondence'        },
+];
+
+/* Long-form documents, kept out of the numbered index and set below it */
+const DOC_ROWS = [
+  { path: '/blueprint', label: 'The Blueprint',       desc: 'The full plan, page by page'      },
+  { path: '/manifesto', label: 'Khalistan Manifesto', desc: 'On sovereignty, 2023 · 25 min'    },
 ];
 
 export function HomePage() {
@@ -154,6 +159,48 @@ export function HomePage() {
                   </span>
                   <span
                     className="text-xl md:text-2xl opacity-20 group-hover:opacity-80 group-hover:translate-x-1 transition-all duration-300"
+                    style={{ color: '#C01818' }}
+                  >
+                    →
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Writings - subordinate to the numbered index above */}
+        <div className="max-w-[1700px] mx-auto px-5 md:px-10 pt-10 md:pt-14">
+          <p className="text-[9px] tracking-[0.45em] opacity-22 font-mono mb-1">WRITINGS</p>
+          {DOC_ROWS.map(({ path, label, desc }, i) => (
+            <motion.div
+              key={path}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
+              viewport={{ once: true, margin: '-30px' }}
+            >
+              <Link
+                to={path}
+                className="group flex items-center gap-4 md:gap-8 py-5 md:py-6 border-b hairline transition-all duration-300"
+              >
+                <div
+                  className="w-0 group-hover:w-[2px] h-5 md:h-6 flex-shrink-0 transition-all duration-300"
+                  style={{ background: 'rgba(192,24,24,0.7)' }}
+                />
+                <span
+                  className="font-display flex-shrink-0 leading-none opacity-70 group-hover:opacity-100 transition-all duration-300"
+                  style={{ fontSize: 'clamp(1.3rem, 3vw, 2rem)' }}
+                >
+                  {label}
+                </span>
+                <div className="flex-1 h-px hidden md:block opacity-0 group-hover:opacity-100 bg-line transition-opacity duration-500" />
+                <div className="ml-auto flex items-center gap-5 md:gap-8 flex-shrink-0">
+                  <span className="hidden lg:block text-[11px] tracking-wider opacity-25 group-hover:opacity-50 transition-opacity text-right max-w-[230px]">
+                    {desc}
+                  </span>
+                  <span
+                    className="text-base md:text-lg opacity-20 group-hover:opacity-70 group-hover:translate-x-1 transition-all duration-300"
                     style={{ color: '#C01818' }}
                   >
                     →
