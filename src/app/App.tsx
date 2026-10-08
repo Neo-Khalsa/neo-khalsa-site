@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { ScrollToTop } from './components/ScrollToTop';
+import { RouteMeta } from './components/RouteMeta';
 import { HomePage } from './HomePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { SpacesPage } from './pages/SpacesPage';
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <RouteMeta />
       <div className="min-h-screen bg-background text-foreground">
         <Navigation />
 

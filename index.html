@@ -21,8 +21,15 @@
     <meta name="twitter:description" content="A book, an imprint, an animated series, and in time an akhara, a university, and a gurdwara. The full plan, with costs and timelines, is published." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- The mark is white on transparent, so every icon has the site's own
+         near-black baked in: Google composites favicons onto a white result
+         card, where a white-on-transparent mark simply vanishes. The .ico
+         carries a 48px entry because that is the size Google renders at;
+         16 and 32 alone were being upscaled, which is what made it blurry. -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <title>Neo Khalsa</title>
   </head>
 
